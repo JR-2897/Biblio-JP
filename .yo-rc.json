@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.ynov.biblio",
+      "nativeLanguage": "fr"
+    },
+    "jhipsterVersion": "6.10.4",
+    "applicationType": "monolith",
+    "baseName": "BiblioJP",
+    "packageName": "com.ynov.biblio",
+    "packageFolder": "com/ynov/biblio",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MmZkNmFkMGYxYmM5ZTI5NmY3YTY5OTUyZDc3MWNiZTQxNTNiYzQ3MDYyMDAzNjBjNWI1M2JkYzc0MDM3NmJjMTZhY2E3OTBkZjE1MzhkNzY3NzNlNGMwZmQzOGViMjZkN2Y3YjdkMjg4MjI0NjQyMDRhYzJjMjk0MTViYWEzZDY=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1604068412380,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "fr",
+    "languages": ["fr"],
+    "blueprints": []
+  }
+}
