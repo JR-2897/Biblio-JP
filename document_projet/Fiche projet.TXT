@@ -1,0 +1,9 @@
+
+Configuration :
+- CMS = Jhipster
+- type de projet = Maven
+- architecture = monolithique
+- BDD = Mysql
+
+Modification Bdd:
+
