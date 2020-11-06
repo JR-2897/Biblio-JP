@@ -12,3 +12,7 @@ Modification Bdd:
         - Champs dernierdatenotif
 
     Ajout champs peutemprunter pour la table utilisateur
+    
+Structuration du projet :
+
+Ajout module dans jhipster pour gestion de la bibliothèque
