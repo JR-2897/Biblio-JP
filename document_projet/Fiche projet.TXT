@@ -1,14 +1,14 @@
 
 Configuration :
 - CMS = Jhipster
-- type de projet = Maven
-- architecture = monolithique
+- Type de projet = Maven
+- Architecture = Monolithique
 - BDD = Mysql
 
 Modification Bdd:
 
-Ajout de 2 champs pour la table emprunt :
-- Champs nb_notifretard
-- Champs dernierdatamodif
+    Ajout de 2 champs pour la table emprunt :
+        - Champs nb_notifretard
+        - Champs dernierdatamodif
 
-Ajout champs peutemprunter pour la table utilisateur
+    Ajout champs peutemprunter pour la table utilisateur
