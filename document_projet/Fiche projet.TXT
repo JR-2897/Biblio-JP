@@ -7,3 +7,8 @@ Configuration :
 
 Modification Bdd:
 
+Ajout de 2 champs pour la table emprunt :
+- Champs nb_notifretard
+- Champs dernierdatamodif
+
+Ajout champs peutemprunter pour la table utilisateur
