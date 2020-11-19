@@ -14,7 +14,7 @@ Modification Bdd:
     
 Structuration du projet :
 
-Ajout module dans jhipster pour gestion de la bibliothèque
+Ajout dans la structure de jhipster pour la partie Back, et pour le front dans un dossier "bibliotheque" à la racine de la partie web.
 
 Attribution des rôles :
 
