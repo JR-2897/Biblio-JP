@@ -1,0 +1,13 @@
+Gestion des branches 
+
+La branche "Master":
+ - Branche de référence pour le déploiement, devra contenir une version fonctionnel du logiciel.
+
+La branche "Develop":
+ - Branche principale du logiciel, qui devra passer les pipelines de test.
+ - C'est de cette branche que le master doit être mis à jour, en fonction des paliers de fonctionnalité.
+ 
+Les branches "Feature" :
+ - Branche qui doivent contenir une fonctionnalité (sauf cas particulier)
+ - Le nom de ces branches doit être structuré comme ça => feature_<trigramme>_<description bref du sujet de la branche, tout attaché avec majuscule>
+   ex: feature_PVI_EcrireProcessusGestionBranche.
