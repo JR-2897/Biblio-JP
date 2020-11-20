@@ -8,6 +8,38 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Biblio JP</name>
+    
+    <developers>
+    	<developer>
+    		<name>VILLIERS Pierre</name>
+    		<organization>YNOV</organization>
+    		<email>pierre.villiers@ynov.com</email>
+    		<roles>
+    			<role>Dev FullStack</role>
+    		</roles>
+    	</developer>
+    	<developer>
+    		<name>RAGUENEAU Jean</name>
+    		<organization>YNOV</organization>
+    		<email>jean.ragueneau@ynov.com</email>
+    		<roles>
+    			<role>Dev FullStack</role>
+    		</roles>
+    	</developer>
+    </developers>
+    
+    <contributors>
+    	<contributor>
+			<name>BILONG Jean</name>
+			<organization>E-MET Consulting</organization>
+			<email>j.bilong@gmail.com</email>
+			<url>www.linkedin.com/in/bilonjea</url>
+			<roles>
+				<role>Développeur Java Spring Angular</role>
+				<role>Formateur Java</role>
+			</roles>
+		</contributor>
+    </contributors>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
