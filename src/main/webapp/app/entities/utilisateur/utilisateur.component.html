@@ -1,0 +1,73 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="biblioJpApp.utilisateur.home.title">Utilisateurs</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-utilisateur" [routerLink]="['/utilisateur/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="biblioJpApp.utilisateur.home.createLabel">
+            Create a new Utilisateur
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="utilisateurs?.length === 0">
+        <span jhiTranslate="biblioJpApp.utilisateur.home.notFound">No utilisateurs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="utilisateurs && utilisateurs.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nom"><span jhiTranslate="biblioJpApp.utilisateur.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="prenom"><span jhiTranslate="biblioJpApp.utilisateur.prenom">Prenom</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateNaissance"><span jhiTranslate="biblioJpApp.utilisateur.dateNaissance">Date Naissance</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="role"><span jhiTranslate="biblioJpApp.utilisateur.role">Role</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pseudo"><span jhiTranslate="biblioJpApp.utilisateur.pseudo">Pseudo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="motDePasse"><span jhiTranslate="biblioJpApp.utilisateur.motDePasse">Mot De Passe</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="peutEmprunter"><span jhiTranslate="biblioJpApp.utilisateur.peutEmprunter">Peut Emprunter</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let utilisateur of utilisateurs ;trackBy: trackId">
+                    <td><a [routerLink]="['/utilisateur', utilisateur.id, 'view']">{{ utilisateur.id }}</a></td>
+                    <td>{{ utilisateur.nom }}</td>
+                    <td>{{ utilisateur.prenom }}</td>
+                    <td>{{ utilisateur.dateNaissance | date:'medium' }}</td>
+                    <td>{{ utilisateur.role }}</td>
+                    <td>{{ utilisateur.pseudo }}</td>
+                    <td>{{ utilisateur.motDePasse }}</td>
+                    <td>{{ utilisateur.peutEmprunter }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/utilisateur', utilisateur.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/utilisateur', utilisateur.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(utilisateur)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

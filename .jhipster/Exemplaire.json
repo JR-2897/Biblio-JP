@@ -1,0 +1,29 @@
+{
+  "name": "Exemplaire",
+  "fields": [
+    {
+      "fieldName": "disponibilite",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "livre",
+      "otherEntityRelationshipName": "exemplaire",
+      "relationshipName": "livre",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201120085555",
+  "entityTableName": "exemplaire",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

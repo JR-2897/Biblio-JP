@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Livre.
+    -->
+    <changeSet id="20201120085455-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="livre_id"
+                                 baseTableName="livre_auteur"
+                                 constraintName="fk_livre_auteur_livre_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="livre"/>
+
+        <addForeignKeyConstraint baseColumnNames="auteur_id"
+                                 baseTableName="livre_auteur"
+                                 constraintName="fk_livre_auteur_auteur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="auteur"/>
+        
+        <addForeignKeyConstraint baseColumnNames="livre_id"
+                                 baseTableName="livre_theme"
+                                 constraintName="fk_livre_theme_livre_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="livre"/>
+
+        <addForeignKeyConstraint baseColumnNames="theme_id"
+                                 baseTableName="livre_theme"
+                                 constraintName="fk_livre_theme_theme_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="theme"/>
+        
+        <addForeignKeyConstraint baseColumnNames="livre_id"
+                                 baseTableName="livre_emplacement"
+                                 constraintName="fk_livre_emplacement_livre_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="livre"/>
+
+        <addForeignKeyConstraint baseColumnNames="emplacement_id"
+                                 baseTableName="livre_emplacement"
+                                 constraintName="fk_livre_emplacement_emplacement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="emplacement"/>
+        
+    </changeSet>
+</databaseChangeLog>

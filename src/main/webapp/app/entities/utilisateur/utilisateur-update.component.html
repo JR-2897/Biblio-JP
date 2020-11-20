@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-utilisateur-heading" jhiTranslate="biblioJpApp.utilisateur.home.createOrEditLabel">Create or edit a Utilisateur</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.nom" for="field_nom">Nom</label>
+                    <input type="text" class="form-control" name="nom" id="field_nom"
+                           formControlName="nom"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.prenom" for="field_prenom">Prenom</label>
+                    <input type="text" class="form-control" name="prenom" id="field_prenom"
+                           formControlName="prenom"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.dateNaissance" for="field_dateNaissance">Date Naissance</label>
+                    <div class="d-flex">
+                        <input id="field_dateNaissance" type="datetime-local" class="form-control" name="dateNaissance" formControlName="dateNaissance" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.role" for="field_role">Role</label>
+                    <input type="text" class="form-control" name="role" id="field_role"
+                           formControlName="role"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.pseudo" for="field_pseudo">Pseudo</label>
+                    <input type="text" class="form-control" name="pseudo" id="field_pseudo"
+                           formControlName="pseudo"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.motDePasse" for="field_motDePasse">Mot De Passe</label>
+                    <input type="text" class="form-control" name="motDePasse" id="field_motDePasse"
+                           formControlName="motDePasse"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.utilisateur.peutEmprunter" for="field_peutEmprunter">Peut Emprunter</label>
+                    <input type="checkbox" class="form-control" name="peutEmprunter" id="field_peutEmprunter"
+                           formControlName="peutEmprunter"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

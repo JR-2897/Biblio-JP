@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="livre">
+            <h2><span jhiTranslate="biblioJpApp.livre.detail.title">Livre</span> {{ livre.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="biblioJpApp.livre.titre">Titre</span></dt>
+                <dd>
+                    <span>{{ livre.titre }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.livre.description">Description</span></dt>
+                <dd>
+                    <span>{{ livre.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.livre.isbn">Isbn</span></dt>
+                <dd>
+                    <span>{{ livre.isbn }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.livre.code">Code</span></dt>
+                <dd>
+                    <span>{{ livre.code }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.livre.auteur">Auteur</span></dt>
+                <dd>
+                    <span *ngFor="let auteur of livre.auteurs; let last = last">
+                        <a [routerLink]="['/auteur', auteur?.id, 'view']">{{ auteur.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.livre.theme">Theme</span></dt>
+                <dd>
+                    <span *ngFor="let theme of livre.themes; let last = last">
+                        <a [routerLink]="['/theme', theme?.id, 'view']">{{ theme.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.livre.emplacement">Emplacement</span></dt>
+                <dd>
+                    <span *ngFor="let emplacement of livre.emplacements; let last = last">
+                        <a [routerLink]="['/emplacement', emplacement?.id, 'view']">{{ emplacement.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/livre', livre.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

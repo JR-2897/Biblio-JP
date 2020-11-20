@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-livre-heading" jhiTranslate="biblioJpApp.livre.home.createOrEditLabel">Create or edit a Livre</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.livre.titre" for="field_titre">Titre</label>
+                    <input type="text" class="form-control" name="titre" id="field_titre"
+                           formControlName="titre"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.livre.description" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                              formControlName="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.livre.isbn" for="field_isbn">Isbn</label>
+                    <input type="text" class="form-control" name="isbn" id="field_isbn"
+                           formControlName="isbn"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="biblioJpApp.livre.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           formControlName="code"/>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="biblioJpApp.livre.auteur" for="field_auteurs">Auteur</label>
+                    <select class="form-control" id="field_auteurs" multiple name="auteurs" formControlName="auteurs">
+                        <option [ngValue]="getSelected(editForm.get('auteurs')!.value, auteurOption)" *ngFor="let auteurOption of auteurs; trackBy: trackById">{{ auteurOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="biblioJpApp.livre.theme" for="field_themes">Theme</label>
+                    <select class="form-control" id="field_themes" multiple name="themes" formControlName="themes">
+                        <option [ngValue]="getSelected(editForm.get('themes')!.value, themeOption)" *ngFor="let themeOption of themes; trackBy: trackById">{{ themeOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="biblioJpApp.livre.emplacement" for="field_emplacements">Emplacement</label>
+                    <select class="form-control" id="field_emplacements" multiple name="emplacements" formControlName="emplacements">
+                        <option [ngValue]="getSelected(editForm.get('emplacements')!.value, emplacementOption)" *ngFor="let emplacementOption of emplacements; trackBy: trackById">{{ emplacementOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

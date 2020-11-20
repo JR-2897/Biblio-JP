@@ -1,0 +1,30 @@
+{
+  "name": "Auteur",
+  "fields": [
+    {
+      "fieldName": "auteur",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "livre",
+      "otherEntityRelationshipName": "auteur",
+      "relationshipName": "livre",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20201120085355",
+  "entityTableName": "auteur",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

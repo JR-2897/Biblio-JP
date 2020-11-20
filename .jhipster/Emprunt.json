@@ -1,0 +1,44 @@
+{
+  "name": "Emprunt",
+  "fields": [
+    {
+      "fieldName": "dateEmprunt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "nbNotifRetard",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "derniereDateNotif",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "emprunt",
+      "relationshipName": "utilisateur",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "exemplaire",
+      "otherEntityRelationshipName": "emprunt",
+      "relationshipName": "exemplaire",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201120085655",
+  "entityTableName": "emprunt",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

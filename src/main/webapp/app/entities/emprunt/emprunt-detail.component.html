@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="emprunt">
+            <h2><span jhiTranslate="biblioJpApp.emprunt.detail.title">Emprunt</span> {{ emprunt.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="biblioJpApp.emprunt.dateEmprunt">Date Emprunt</span></dt>
+                <dd>
+                    <span>{{ emprunt.dateEmprunt }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.emprunt.nbNotifRetard">Nb Notif Retard</span></dt>
+                <dd>
+                    <span>{{ emprunt.nbNotifRetard }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.emprunt.derniereDateNotif">Derniere Date Notif</span></dt>
+                <dd>
+                    <span>{{ emprunt.derniereDateNotif }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.emprunt.utilisateur">Utilisateur</span></dt>
+                <dd>
+                    <div *ngIf="emprunt.utilisateur">
+                        <a [routerLink]="['/utilisateur', emprunt.utilisateur?.id, 'view']">{{ emprunt.utilisateur?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.emprunt.exemplaire">Exemplaire</span></dt>
+                <dd>
+                    <div *ngIf="emprunt.exemplaire">
+                        <a [routerLink]="['/exemplaire', emprunt.exemplaire?.id, 'view']">{{ emprunt.exemplaire?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/emprunt', emprunt.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

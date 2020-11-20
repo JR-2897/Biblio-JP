@@ -1,0 +1,23 @@
+{
+  "biblioJpApp": {
+    "exemplaire": {
+      "home": {
+        "title": "Exemplaires",
+        "createLabel": "Créer un nouveau Exemplaire",
+        "createOrEditLabel": "Créer ou éditer un Exemplaire",
+        "notFound": "Aucun Exemplaire trouvé"
+      },
+      "created": "Un nouveau Exemplaire a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Exemplaire avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Exemplaire avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Exemplaire {{ id }} ?"
+      },
+      "detail": {
+        "title": "Exemplaire"
+      },
+      "disponibilite": "Disponibilite",
+      "livre": "Livre"
+    }
+  }
+}
