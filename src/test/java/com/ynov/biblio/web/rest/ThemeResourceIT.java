@@ -3,7 +3,6 @@ package com.ynov.biblio.web.rest;
 import com.ynov.biblio.BiblioJpApp;
 import com.ynov.biblio.domain.Theme;
 import com.ynov.biblio.repository.ThemeRepository;
-import com.ynov.biblio.service.ThemeService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,9 +34,6 @@ public class ThemeResourceIT {
 
     @Autowired
     private ThemeRepository themeRepository;
-
-    @Autowired
-    private ThemeService themeService;
 
     @Autowired
     private EntityManager em;
@@ -151,7 +147,7 @@ public class ThemeResourceIT {
     @Transactional
     public void updateTheme() throws Exception {
         // Initialize the database
-        themeService.save(theme);
+        themeRepository.saveAndFlush(theme);
 
         int databaseSizeBeforeUpdate = themeRepository.findAll().size();
 
@@ -194,7 +190,7 @@ public class ThemeResourceIT {
     @Transactional
     public void deleteTheme() throws Exception {
         // Initialize the database
-        themeService.save(theme);
+        themeRepository.saveAndFlush(theme);
 
         int databaseSizeBeforeDelete = themeRepository.findAll().size();
 

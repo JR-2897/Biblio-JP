@@ -19,7 +19,7 @@
   "entityTableName": "exemplaire",
   "dto": "no",
   "pagination": "no",
-  "service": "serviceImpl",
+  "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,

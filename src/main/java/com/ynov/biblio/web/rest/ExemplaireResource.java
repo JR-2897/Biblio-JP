@@ -1,7 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.domain.Exemplaire;
-import com.ynov.biblio.service.ExemplaireService;
+import com.ynov.biblio.repository.ExemplaireRepository;
 import com.ynov.biblio.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,6 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class ExemplaireResource {
 
     private final Logger log = LoggerFactory.getLogger(ExemplaireResource.class);
@@ -31,10 +33,10 @@ public class ExemplaireResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final ExemplaireService exemplaireService;
+    private final ExemplaireRepository exemplaireRepository;
 
-    public ExemplaireResource(ExemplaireService exemplaireService) {
-        this.exemplaireService = exemplaireService;
+    public ExemplaireResource(ExemplaireRepository exemplaireRepository) {
+        this.exemplaireRepository = exemplaireRepository;
     }
 
     /**
@@ -50,7 +52,7 @@ public class ExemplaireResource {
         if (exemplaire.getId() != null) {
             throw new BadRequestAlertException("A new exemplaire cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Exemplaire result = exemplaireService.save(exemplaire);
+        Exemplaire result = exemplaireRepository.save(exemplaire);
         return ResponseEntity.created(new URI("/api/exemplaires/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,7 +73,7 @@ public class ExemplaireResource {
         if (exemplaire.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Exemplaire result = exemplaireService.save(exemplaire);
+        Exemplaire result = exemplaireRepository.save(exemplaire);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, exemplaire.getId().toString()))
             .body(result);
@@ -85,7 +87,7 @@ public class ExemplaireResource {
     @GetMapping("/exemplaires")
     public List<Exemplaire> getAllExemplaires() {
         log.debug("REST request to get all Exemplaires");
-        return exemplaireService.findAll();
+        return exemplaireRepository.findAll();
     }
 
     /**
@@ -97,7 +99,7 @@ public class ExemplaireResource {
     @GetMapping("/exemplaires/{id}")
     public ResponseEntity<Exemplaire> getExemplaire(@PathVariable Long id) {
         log.debug("REST request to get Exemplaire : {}", id);
-        Optional<Exemplaire> exemplaire = exemplaireService.findOne(id);
+        Optional<Exemplaire> exemplaire = exemplaireRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(exemplaire);
     }
 
@@ -110,7 +112,7 @@ public class ExemplaireResource {
     @DeleteMapping("/exemplaires/{id}")
     public ResponseEntity<Void> deleteExemplaire(@PathVariable Long id) {
         log.debug("REST request to delete Exemplaire : {}", id);
-        exemplaireService.delete(id);
+        exemplaireRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

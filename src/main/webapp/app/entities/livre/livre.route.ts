@@ -40,7 +40,6 @@ export const livreRoute: Routes = [
     component: LivreComponent,
     data: {
       authorities: [Authority.USER],
-      defaultSort: 'id,asc',
       pageTitle: 'biblioJpApp.livre.home.title',
     },
     canActivate: [UserRouteAccessService],

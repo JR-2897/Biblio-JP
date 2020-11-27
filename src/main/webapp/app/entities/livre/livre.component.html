@@ -21,12 +21,15 @@
     <div class="table-responsive" id="entities" *ngIf="livres && livres.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="titre"><span jhiTranslate="biblioJpApp.livre.titre">Titre</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="biblioJpApp.livre.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="isbn"><span jhiTranslate="biblioJpApp.livre.isbn">Isbn</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="code"><span jhiTranslate="biblioJpApp.livre.code">Code</span> <fa-icon icon="sort"></fa-icon></th>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.titre">Titre</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.description">Description</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.isbn">Isbn</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.code">Code</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.auteur">Auteur</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.theme">Theme</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.livre.emplacement">Emplacement</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -37,6 +40,21 @@
                     <td>{{ livre.description }}</td>
                     <td>{{ livre.isbn }}</td>
                     <td>{{ livre.code }}</td>
+                    <td>
+                        <span *ngFor="let auteur of livre.auteurs; let last = last">
+                            <a class="form-control-static" [routerLink]="['/auteur', auteur?.id, 'view']">{{ auteur.id }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngFor="let theme of livre.themes; let last = last">
+                            <a class="form-control-static" [routerLink]="['/theme', theme?.id, 'view']">{{ theme.id }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngFor="let emplacement of livre.emplacements; let last = last">
+                            <a class="form-control-static" [routerLink]="['/emplacement', emplacement?.id, 'view']">{{ emplacement.id }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
@@ -63,15 +81,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div *ngIf="livres && livres.length > 0">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
-        </div>
     </div>
 </div>

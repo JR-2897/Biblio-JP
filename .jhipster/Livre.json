@@ -48,7 +48,7 @@
   "changelogDate": "20201120085455",
   "entityTableName": "livre",
   "dto": "no",
-  "pagination": "pagination",
+  "pagination": "no",
   "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

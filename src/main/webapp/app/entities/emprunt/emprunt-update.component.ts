@@ -9,12 +9,8 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IEmprunt, Emprunt } from 'app/shared/model/emprunt.model';
 import { EmpruntService } from './emprunt.service';
-import { IUtilisateur } from 'app/shared/model/utilisateur.model';
-import { UtilisateurService } from 'app/entities/utilisateur/utilisateur.service';
 import { IExemplaire } from 'app/shared/model/exemplaire.model';
 import { ExemplaireService } from 'app/entities/exemplaire/exemplaire.service';
-
-type SelectableEntity = IUtilisateur | IExemplaire;
 
 @Component({
   selector: 'jhi-emprunt-update',
@@ -22,7 +18,6 @@ type SelectableEntity = IUtilisateur | IExemplaire;
 })
 export class EmpruntUpdateComponent implements OnInit {
   isSaving = false;
-  utilisateurs: IUtilisateur[] = [];
   exemplaires: IExemplaire[] = [];
 
   editForm = this.fb.group({
@@ -30,13 +25,11 @@ export class EmpruntUpdateComponent implements OnInit {
     dateEmprunt: [],
     nbNotifRetard: [],
     derniereDateNotif: [],
-    utilisateur: [],
     exemplaire: [],
   });
 
   constructor(
     protected empruntService: EmpruntService,
-    protected utilisateurService: UtilisateurService,
     protected exemplaireService: ExemplaireService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -52,8 +45,6 @@ export class EmpruntUpdateComponent implements OnInit {
 
       this.updateForm(emprunt);
 
-      this.utilisateurService.query().subscribe((res: HttpResponse<IUtilisateur[]>) => (this.utilisateurs = res.body || []));
-
       this.exemplaireService.query().subscribe((res: HttpResponse<IExemplaire[]>) => (this.exemplaires = res.body || []));
     });
   }
@@ -64,7 +55,6 @@ export class EmpruntUpdateComponent implements OnInit {
       dateEmprunt: emprunt.dateEmprunt ? emprunt.dateEmprunt.format(DATE_TIME_FORMAT) : null,
       nbNotifRetard: emprunt.nbNotifRetard,
       derniereDateNotif: emprunt.derniereDateNotif ? emprunt.derniereDateNotif.format(DATE_TIME_FORMAT) : null,
-      utilisateur: emprunt.utilisateur,
       exemplaire: emprunt.exemplaire,
     });
   }
@@ -94,7 +84,6 @@ export class EmpruntUpdateComponent implements OnInit {
       derniereDateNotif: this.editForm.get(['derniereDateNotif'])!.value
         ? moment(this.editForm.get(['derniereDateNotif'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      utilisateur: this.editForm.get(['utilisateur'])!.value,
       exemplaire: this.editForm.get(['exemplaire'])!.value,
     };
   }
@@ -115,7 +104,7 @@ export class EmpruntUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: SelectableEntity): any {
+  trackById(index: number, item: IExemplaire): any {
     return item.id;
   }
 }

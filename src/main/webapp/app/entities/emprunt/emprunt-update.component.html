@@ -32,14 +32,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="biblioJpApp.emprunt.utilisateur" for="field_utilisateur">Utilisateur</label>
-                    <select class="form-control" id="field_utilisateur" name="utilisateur" formControlName="utilisateur">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="utilisateurOption.id === editForm.get('utilisateur')!.value?.id ? editForm.get('utilisateur')!.value : utilisateurOption" *ngFor="let utilisateurOption of utilisateurs; trackBy: trackById">{{ utilisateurOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="biblioJpApp.emprunt.exemplaire" for="field_exemplaire">Exemplaire</label>
                     <select class="form-control" id="field_exemplaire" name="exemplaire" formControlName="exemplaire">
                         <option [ngValue]="null"></option>
