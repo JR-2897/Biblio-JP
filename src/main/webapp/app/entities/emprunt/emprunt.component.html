@@ -21,27 +21,21 @@
     <div class="table-responsive" id="entities" *ngIf="emprunts && emprunts.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dateEmprunt"><span jhiTranslate="biblioJpApp.emprunt.dateEmprunt">Date Emprunt</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="nbNotifRetard"><span jhiTranslate="biblioJpApp.emprunt.nbNotifRetard">Nb Notif Retard</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="derniereDateNotif"><span jhiTranslate="biblioJpApp.emprunt.derniereDateNotif">Derniere Date Notif</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="utilisateur.id"><span jhiTranslate="biblioJpApp.emprunt.utilisateur">Utilisateur</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="exemplaire.id"><span jhiTranslate="biblioJpApp.emprunt.exemplaire">Exemplaire</span> <fa-icon icon="sort"></fa-icon></th>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.emprunt.dateEmprunt">Date Emprunt</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.emprunt.nbNotifRetard">Nb Notif Retard</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.emprunt.derniereDateNotif">Derniere Date Notif</span></th>
+                    <th scope="col" ><span jhiTranslate="biblioJpApp.emprunt.exemplaire">Exemplaire</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
                 <tr *ngFor="let emprunt of emprunts ;trackBy: trackId">
                     <td><a [routerLink]="['/emprunt', emprunt.id, 'view']">{{ emprunt.id }}</a></td>
                     <td>{{ emprunt.dateEmprunt | date:'medium' }}</td>
                     <td>{{ emprunt.nbNotifRetard }}</td>
                     <td>{{ emprunt.derniereDateNotif | date:'medium' }}</td>
-                    <td>
-                        <div *ngIf="emprunt.utilisateur">
-                            <a [routerLink]="['/utilisateur', emprunt.utilisateur?.id, 'view']" >{{ emprunt.utilisateur?.id }}</a>
-                        </div>
-                    </td>
                     <td>
                         <div *ngIf="emprunt.exemplaire">
                             <a [routerLink]="['/exemplaire', emprunt.exemplaire?.id, 'view']" >{{ emprunt.exemplaire?.id }}</a>

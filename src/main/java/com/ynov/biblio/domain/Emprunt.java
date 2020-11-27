@@ -31,10 +31,6 @@ public class Emprunt implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "emprunts", allowSetters = true)
-    private Utilisateur utilisateur;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "emprunts", allowSetters = true)
     private Exemplaire exemplaire;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -83,19 +79,6 @@ public class Emprunt implements Serializable {
 
     public void setDerniereDateNotif(ZonedDateTime derniereDateNotif) {
         this.derniereDateNotif = derniereDateNotif;
-    }
-
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public Emprunt utilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-        return this;
-    }
-
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
     }
 
     public Exemplaire getExemplaire() {

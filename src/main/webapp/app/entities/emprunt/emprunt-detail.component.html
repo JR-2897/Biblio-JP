@@ -20,12 +20,6 @@
                 <dd>
                     <span>{{ emprunt.derniereDateNotif }}</span>
                 </dd>
-                <dt><span jhiTranslate="biblioJpApp.emprunt.utilisateur">Utilisateur</span></dt>
-                <dd>
-                    <div *ngIf="emprunt.utilisateur">
-                        <a [routerLink]="['/utilisateur', emprunt.utilisateur?.id, 'view']">{{ emprunt.utilisateur?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="biblioJpApp.emprunt.exemplaire">Exemplaire</span></dt>
                 <dd>
                     <div *ngIf="emprunt.exemplaire">

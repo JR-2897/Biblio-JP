@@ -17,13 +17,6 @@
   "relationships": [
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "utilisateur",
-      "otherEntityRelationshipName": "emprunt",
-      "relationshipName": "utilisateur",
-      "otherEntityField": "id"
-    },
-    {
-      "relationshipType": "many-to-one",
       "otherEntityName": "exemplaire",
       "otherEntityRelationshipName": "emprunt",
       "relationshipName": "exemplaire",
@@ -33,8 +26,8 @@
   "changelogDate": "20201120085655",
   "entityTableName": "emprunt",
   "dto": "no",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
+  "pagination": "no",
+  "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,

@@ -3,7 +3,6 @@ package com.ynov.biblio.web.rest;
 import com.ynov.biblio.BiblioJpApp;
 import com.ynov.biblio.domain.Auteur;
 import com.ynov.biblio.repository.AuteurRepository;
-import com.ynov.biblio.service.AuteurService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,9 +34,6 @@ public class AuteurResourceIT {
 
     @Autowired
     private AuteurRepository auteurRepository;
-
-    @Autowired
-    private AuteurService auteurService;
 
     @Autowired
     private EntityManager em;
@@ -151,7 +147,7 @@ public class AuteurResourceIT {
     @Transactional
     public void updateAuteur() throws Exception {
         // Initialize the database
-        auteurService.save(auteur);
+        auteurRepository.saveAndFlush(auteur);
 
         int databaseSizeBeforeUpdate = auteurRepository.findAll().size();
 
@@ -194,7 +190,7 @@ public class AuteurResourceIT {
     @Transactional
     public void deleteAuteur() throws Exception {
         // Initialize the database
-        auteurService.save(auteur);
+        auteurRepository.saveAndFlush(auteur);
 
         int databaseSizeBeforeDelete = auteurRepository.findAll().size();
 

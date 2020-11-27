@@ -1,7 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.domain.Theme;
-import com.ynov.biblio.service.ThemeService;
+import com.ynov.biblio.repository.ThemeRepository;
 import com.ynov.biblio.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,6 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class ThemeResource {
 
     private final Logger log = LoggerFactory.getLogger(ThemeResource.class);
@@ -31,10 +33,10 @@ public class ThemeResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final ThemeService themeService;
+    private final ThemeRepository themeRepository;
 
-    public ThemeResource(ThemeService themeService) {
-        this.themeService = themeService;
+    public ThemeResource(ThemeRepository themeRepository) {
+        this.themeRepository = themeRepository;
     }
 
     /**
@@ -50,7 +52,7 @@ public class ThemeResource {
         if (theme.getId() != null) {
             throw new BadRequestAlertException("A new theme cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Theme result = themeService.save(theme);
+        Theme result = themeRepository.save(theme);
         return ResponseEntity.created(new URI("/api/themes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,7 +73,7 @@ public class ThemeResource {
         if (theme.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Theme result = themeService.save(theme);
+        Theme result = themeRepository.save(theme);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, theme.getId().toString()))
             .body(result);
@@ -85,7 +87,7 @@ public class ThemeResource {
     @GetMapping("/themes")
     public List<Theme> getAllThemes() {
         log.debug("REST request to get all Themes");
-        return themeService.findAll();
+        return themeRepository.findAll();
     }
 
     /**
@@ -97,7 +99,7 @@ public class ThemeResource {
     @GetMapping("/themes/{id}")
     public ResponseEntity<Theme> getTheme(@PathVariable Long id) {
         log.debug("REST request to get Theme : {}", id);
-        Optional<Theme> theme = themeService.findOne(id);
+        Optional<Theme> theme = themeRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(theme);
     }
 
@@ -110,7 +112,7 @@ public class ThemeResource {
     @DeleteMapping("/themes/{id}")
     public ResponseEntity<Void> deleteTheme(@PathVariable Long id) {
         log.debug("REST request to delete Theme : {}", id);
-        themeService.delete(id);
+        themeRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

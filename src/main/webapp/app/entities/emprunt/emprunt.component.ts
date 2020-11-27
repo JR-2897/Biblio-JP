@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IEmprunt } from 'app/shared/model/emprunt.model';
-
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { EmpruntService } from './emprunt.service';
 import { EmpruntDeleteDialogComponent } from './emprunt-delete-dialog.component';
 
@@ -15,49 +13,13 @@ import { EmpruntDeleteDialogComponent } from './emprunt-delete-dialog.component'
   templateUrl: './emprunt.component.html',
 })
 export class EmpruntComponent implements OnInit, OnDestroy {
-  emprunts: IEmprunt[];
+  emprunts?: IEmprunt[];
   eventSubscriber?: Subscription;
-  itemsPerPage: number;
-  links: any;
-  page: number;
-  predicate: string;
-  ascending: boolean;
 
-  constructor(
-    protected empruntService: EmpruntService,
-    protected eventManager: JhiEventManager,
-    protected modalService: NgbModal,
-    protected parseLinks: JhiParseLinks
-  ) {
-    this.emprunts = [];
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.page = 0;
-    this.links = {
-      last: 0,
-    };
-    this.predicate = 'id';
-    this.ascending = true;
-  }
+  constructor(protected empruntService: EmpruntService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
 
   loadAll(): void {
-    this.empruntService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe((res: HttpResponse<IEmprunt[]>) => this.paginateEmprunts(res.body, res.headers));
-  }
-
-  reset(): void {
-    this.page = 0;
-    this.emprunts = [];
-    this.loadAll();
-  }
-
-  loadPage(page: number): void {
-    this.page = page;
-    this.loadAll();
+    this.empruntService.query().subscribe((res: HttpResponse<IEmprunt[]>) => (this.emprunts = res.body || []));
   }
 
   ngOnInit(): void {
@@ -77,29 +39,11 @@ export class EmpruntComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInEmprunts(): void {
-    this.eventSubscriber = this.eventManager.subscribe('empruntListModification', () => this.reset());
+    this.eventSubscriber = this.eventManager.subscribe('empruntListModification', () => this.loadAll());
   }
 
   delete(emprunt: IEmprunt): void {
     const modalRef = this.modalService.open(EmpruntDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emprunt = emprunt;
-  }
-
-  sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
-  }
-
-  protected paginateEmprunts(data: IEmprunt[] | null, headers: HttpHeaders): void {
-    const headersLink = headers.get('link');
-    this.links = this.parseLinks.parse(headersLink ? headersLink : '');
-    if (data) {
-      for (let i = 0; i < data.length; i++) {
-        this.emprunts.push(data[i]);
-      }
-    }
   }
 }

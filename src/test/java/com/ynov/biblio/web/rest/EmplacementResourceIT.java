@@ -3,7 +3,6 @@ package com.ynov.biblio.web.rest;
 import com.ynov.biblio.BiblioJpApp;
 import com.ynov.biblio.domain.Emplacement;
 import com.ynov.biblio.repository.EmplacementRepository;
-import com.ynov.biblio.service.EmplacementService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,9 +34,6 @@ public class EmplacementResourceIT {
 
     @Autowired
     private EmplacementRepository emplacementRepository;
-
-    @Autowired
-    private EmplacementService emplacementService;
 
     @Autowired
     private EntityManager em;
@@ -151,7 +147,7 @@ public class EmplacementResourceIT {
     @Transactional
     public void updateEmplacement() throws Exception {
         // Initialize the database
-        emplacementService.save(emplacement);
+        emplacementRepository.saveAndFlush(emplacement);
 
         int databaseSizeBeforeUpdate = emplacementRepository.findAll().size();
 
@@ -194,7 +190,7 @@ public class EmplacementResourceIT {
     @Transactional
     public void deleteEmplacement() throws Exception {
         // Initialize the database
-        emplacementService.save(emplacement);
+        emplacementRepository.saveAndFlush(emplacement);
 
         int databaseSizeBeforeDelete = emplacementRepository.findAll().size();
 

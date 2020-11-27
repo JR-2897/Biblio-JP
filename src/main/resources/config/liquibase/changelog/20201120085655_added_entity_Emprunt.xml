@@ -25,9 +25,6 @@
             <column name="derniere_date_notif" type="datetime">
                 <constraints nullable="true" />
             </column>
-            <column name="utilisateur_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="exemplaire_id" type="bigint">
                 <constraints nullable="true" />
             </column>

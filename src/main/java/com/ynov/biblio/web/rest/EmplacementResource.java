@@ -1,7 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.domain.Emplacement;
-import com.ynov.biblio.service.EmplacementService;
+import com.ynov.biblio.repository.EmplacementRepository;
 import com.ynov.biblio.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,6 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class EmplacementResource {
 
     private final Logger log = LoggerFactory.getLogger(EmplacementResource.class);
@@ -31,10 +33,10 @@ public class EmplacementResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final EmplacementService emplacementService;
+    private final EmplacementRepository emplacementRepository;
 
-    public EmplacementResource(EmplacementService emplacementService) {
-        this.emplacementService = emplacementService;
+    public EmplacementResource(EmplacementRepository emplacementRepository) {
+        this.emplacementRepository = emplacementRepository;
     }
 
     /**
@@ -50,7 +52,7 @@ public class EmplacementResource {
         if (emplacement.getId() != null) {
             throw new BadRequestAlertException("A new emplacement cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Emplacement result = emplacementService.save(emplacement);
+        Emplacement result = emplacementRepository.save(emplacement);
         return ResponseEntity.created(new URI("/api/emplacements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,7 +73,7 @@ public class EmplacementResource {
         if (emplacement.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Emplacement result = emplacementService.save(emplacement);
+        Emplacement result = emplacementRepository.save(emplacement);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, emplacement.getId().toString()))
             .body(result);
@@ -85,7 +87,7 @@ public class EmplacementResource {
     @GetMapping("/emplacements")
     public List<Emplacement> getAllEmplacements() {
         log.debug("REST request to get all Emplacements");
-        return emplacementService.findAll();
+        return emplacementRepository.findAll();
     }
 
     /**
@@ -97,7 +99,7 @@ public class EmplacementResource {
     @GetMapping("/emplacements/{id}")
     public ResponseEntity<Emplacement> getEmplacement(@PathVariable Long id) {
         log.debug("REST request to get Emplacement : {}", id);
-        Optional<Emplacement> emplacement = emplacementService.findOne(id);
+        Optional<Emplacement> emplacement = emplacementRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(emplacement);
     }
 
@@ -110,7 +112,7 @@ public class EmplacementResource {
     @DeleteMapping("/emplacements/{id}")
     public ResponseEntity<Void> deleteEmplacement(@PathVariable Long id) {
         log.debug("REST request to delete Emplacement : {}", id);
-        emplacementService.delete(id);
+        emplacementRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }
