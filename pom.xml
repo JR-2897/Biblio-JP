@@ -41,6 +41,21 @@
 		</contributor>
     </contributors>
 
+	<distributionManagement>
+        <!--libs-snapshot --> 
+        <snapshotRepository>
+        	<id>snapshots</id>
+        	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
+        	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
+    	</snapshotRepository>
+        <!-- libs-release --> 
+        <repository>
+        	<id>central</id>
+       		<name>a0fgx3oyfdjnr-artifactory-primary-0-releases</name>
+        	<url>https://bilonjea.jfrog.io/artifactory/libs-release</url>
+    	</repository>
+    </distributionManagement>
+
     <repositories>
         <!-- jhipster-needle-maven-repository -->
     </repositories>
