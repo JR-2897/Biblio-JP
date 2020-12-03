@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.Emprunt;
 import com.ynov.biblio.repository.EmpruntRepository;
 
@@ -23,13 +24,14 @@ import java.util.List;
 import static com.ynov.biblio.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link EmpruntResource} REST controller.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = { BiblioJpApp.class, TestSecurityConfiguration.class })
 @AutoConfigureMockMvc
 @WithMockUser
 public class EmpruntResourceIT {
@@ -91,7 +93,7 @@ public class EmpruntResourceIT {
     public void createEmprunt() throws Exception {
         int databaseSizeBeforeCreate = empruntRepository.findAll().size();
         // Create the Emprunt
-        restEmpruntMockMvc.perform(post("/api/emprunts")
+        restEmpruntMockMvc.perform(post("/api/emprunts").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(emprunt)))
             .andExpect(status().isCreated());
@@ -114,7 +116,7 @@ public class EmpruntResourceIT {
         emprunt.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restEmpruntMockMvc.perform(post("/api/emprunts")
+        restEmpruntMockMvc.perform(post("/api/emprunts").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(emprunt)))
             .andExpect(status().isBadRequest());
@@ -181,7 +183,7 @@ public class EmpruntResourceIT {
             .nbNotifRetard(UPDATED_NB_NOTIF_RETARD)
             .derniereDateNotif(UPDATED_DERNIERE_DATE_NOTIF);
 
-        restEmpruntMockMvc.perform(put("/api/emprunts")
+        restEmpruntMockMvc.perform(put("/api/emprunts").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedEmprunt)))
             .andExpect(status().isOk());
@@ -201,7 +203,7 @@ public class EmpruntResourceIT {
         int databaseSizeBeforeUpdate = empruntRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restEmpruntMockMvc.perform(put("/api/emprunts")
+        restEmpruntMockMvc.perform(put("/api/emprunts").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(emprunt)))
             .andExpect(status().isBadRequest());
@@ -220,7 +222,7 @@ public class EmpruntResourceIT {
         int databaseSizeBeforeDelete = empruntRepository.findAll().size();
 
         // Delete the emprunt
-        restEmpruntMockMvc.perform(delete("/api/emprunts/{id}", emprunt.getId())
+        restEmpruntMockMvc.perform(delete("/api/emprunts/{id}", emprunt.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

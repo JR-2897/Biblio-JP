@@ -2,7 +2,6 @@ package com.ynov.biblio.service.mapper;
 
 import com.ynov.biblio.domain.User;
 import com.ynov.biblio.service.dto.UserDTO;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserMapperTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";
-    private static final Long DEFAULT_ID = 1L;
+    private static final String DEFAULT_ID = "id1";
 
     private UserMapper userMapper;
     private User user;
@@ -30,7 +29,6 @@ public class UserMapperTest {
         userMapper = new UserMapper();
         user = new User();
         user.setLogin(DEFAULT_LOGIN);
-        user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
         user.setEmail("johndoe@localhost");
         user.setFirstName("john");

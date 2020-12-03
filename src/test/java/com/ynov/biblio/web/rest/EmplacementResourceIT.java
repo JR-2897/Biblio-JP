@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.Emplacement;
 import com.ynov.biblio.repository.EmplacementRepository;
 
@@ -18,13 +19,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link EmplacementResource} REST controller.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = { BiblioJpApp.class, TestSecurityConfiguration.class })
 @AutoConfigureMockMvc
 @WithMockUser
 public class EmplacementResourceIT {
@@ -76,7 +78,7 @@ public class EmplacementResourceIT {
     public void createEmplacement() throws Exception {
         int databaseSizeBeforeCreate = emplacementRepository.findAll().size();
         // Create the Emplacement
-        restEmplacementMockMvc.perform(post("/api/emplacements")
+        restEmplacementMockMvc.perform(post("/api/emplacements").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(emplacement)))
             .andExpect(status().isCreated());
@@ -97,7 +99,7 @@ public class EmplacementResourceIT {
         emplacement.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restEmplacementMockMvc.perform(post("/api/emplacements")
+        restEmplacementMockMvc.perform(post("/api/emplacements").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(emplacement)))
             .andExpect(status().isBadRequest());
@@ -158,7 +160,7 @@ public class EmplacementResourceIT {
         updatedEmplacement
             .nomEmplacement(UPDATED_NOM_EMPLACEMENT);
 
-        restEmplacementMockMvc.perform(put("/api/emplacements")
+        restEmplacementMockMvc.perform(put("/api/emplacements").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedEmplacement)))
             .andExpect(status().isOk());
@@ -176,7 +178,7 @@ public class EmplacementResourceIT {
         int databaseSizeBeforeUpdate = emplacementRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restEmplacementMockMvc.perform(put("/api/emplacements")
+        restEmplacementMockMvc.perform(put("/api/emplacements").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(emplacement)))
             .andExpect(status().isBadRequest());
@@ -195,7 +197,7 @@ public class EmplacementResourceIT {
         int databaseSizeBeforeDelete = emplacementRepository.findAll().size();
 
         // Delete the emplacement
-        restEmplacementMockMvc.perform(delete("/api/emplacements/{id}", emplacement.getId())
+        restEmplacementMockMvc.perform(delete("/api/emplacements/{id}", emplacement.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

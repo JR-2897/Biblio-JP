@@ -23,7 +23,7 @@
       "otherEntityField": "id"
     }
   ],
-  "changelogDate": "20201120085655",
+  "changelogDate": "20201203162733",
   "entityTableName": "emprunt",
   "dto": "no",
   "pagination": "no",

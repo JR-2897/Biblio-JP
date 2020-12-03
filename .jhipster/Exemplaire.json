@@ -15,7 +15,7 @@
       "otherEntityField": "id"
     }
   ],
-  "changelogDate": "20201120085555",
+  "changelogDate": "20201203162633",
   "entityTableName": "exemplaire",
   "dto": "no",
   "pagination": "no",

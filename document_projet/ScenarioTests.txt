@@ -1,0 +1,10 @@
+Liste des scénarios de tests :
+  - 1er test - Creation d'un collaborateur :
+    - Enregistrement d'un utilisateur
+    - Connexion via le compte administrateur
+    - Accès à la liste des utilisateurs
+    - Vérifier la présence de l'utilisateur précédemment créé
+    - Ouvrir la page de modification de l'utilisateur créé précédemment
+    - Modifier le rôle de l'utilisateur en collaborateur
+    - Enregistrer la modification
+    - Verifier la modification du rôle du nouveau collaborateur

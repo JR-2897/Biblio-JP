@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.Exemplaire;
 import com.ynov.biblio.repository.ExemplaireRepository;
 
@@ -18,13 +19,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link ExemplaireResource} REST controller.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = { BiblioJpApp.class, TestSecurityConfiguration.class })
 @AutoConfigureMockMvc
 @WithMockUser
 public class ExemplaireResourceIT {
@@ -76,7 +78,7 @@ public class ExemplaireResourceIT {
     public void createExemplaire() throws Exception {
         int databaseSizeBeforeCreate = exemplaireRepository.findAll().size();
         // Create the Exemplaire
-        restExemplaireMockMvc.perform(post("/api/exemplaires")
+        restExemplaireMockMvc.perform(post("/api/exemplaires").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(exemplaire)))
             .andExpect(status().isCreated());
@@ -97,7 +99,7 @@ public class ExemplaireResourceIT {
         exemplaire.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restExemplaireMockMvc.perform(post("/api/exemplaires")
+        restExemplaireMockMvc.perform(post("/api/exemplaires").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(exemplaire)))
             .andExpect(status().isBadRequest());
@@ -158,7 +160,7 @@ public class ExemplaireResourceIT {
         updatedExemplaire
             .disponibilite(UPDATED_DISPONIBILITE);
 
-        restExemplaireMockMvc.perform(put("/api/exemplaires")
+        restExemplaireMockMvc.perform(put("/api/exemplaires").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedExemplaire)))
             .andExpect(status().isOk());
@@ -176,7 +178,7 @@ public class ExemplaireResourceIT {
         int databaseSizeBeforeUpdate = exemplaireRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restExemplaireMockMvc.perform(put("/api/exemplaires")
+        restExemplaireMockMvc.perform(put("/api/exemplaires").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(exemplaire)))
             .andExpect(status().isBadRequest());
@@ -195,7 +197,7 @@ public class ExemplaireResourceIT {
         int databaseSizeBeforeDelete = exemplaireRepository.findAll().size();
 
         // Delete the exemplaire
-        restExemplaireMockMvc.perform(delete("/api/exemplaires/{id}", exemplaire.getId())
+        restExemplaireMockMvc.perform(delete("/api/exemplaires/{id}", exemplaire.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

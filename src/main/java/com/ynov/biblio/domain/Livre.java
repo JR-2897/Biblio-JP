@@ -1,5 +1,7 @@
 package com.ynov.biblio.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -12,6 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "livre")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Livre implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,18 +37,21 @@ public class Livre implements Serializable {
     private String code;
 
     @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "livre_auteur",
                joinColumns = @JoinColumn(name = "livre_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "auteur_id", referencedColumnName = "id"))
     private Set<Auteur> auteurs = new HashSet<>();
 
     @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "livre_theme",
                joinColumns = @JoinColumn(name = "livre_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "theme_id", referencedColumnName = "id"))
     private Set<Theme> themes = new HashSet<>();
 
     @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "livre_emplacement",
                joinColumns = @JoinColumn(name = "livre_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "emplacement_id", referencedColumnName = "id"))

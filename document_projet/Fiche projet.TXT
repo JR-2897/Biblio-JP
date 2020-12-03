@@ -25,6 +25,6 @@ Attribution des rôles :
 Liens des ressources :
 
 - Github : https://github.com/JR-2897/Biblio-JP
-- Sonar Cloud :  https://sonarcloud.io/
-- Heroku : https://www.heroku.com/
+- Sonar Cloud :  https://sonarcloud.io/project/configuration?id=com.yov.biblio%3Abiblio-jp
+- Heroku : https://biblio-jp.herokuapp.com/
 - JFrog : https://bilonjea.jfrog.io/

@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.Auteur;
 import com.ynov.biblio.repository.AuteurRepository;
 
@@ -18,13 +19,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link AuteurResource} REST controller.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = { BiblioJpApp.class, TestSecurityConfiguration.class })
 @AutoConfigureMockMvc
 @WithMockUser
 public class AuteurResourceIT {
@@ -76,7 +78,7 @@ public class AuteurResourceIT {
     public void createAuteur() throws Exception {
         int databaseSizeBeforeCreate = auteurRepository.findAll().size();
         // Create the Auteur
-        restAuteurMockMvc.perform(post("/api/auteurs")
+        restAuteurMockMvc.perform(post("/api/auteurs").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(auteur)))
             .andExpect(status().isCreated());
@@ -97,7 +99,7 @@ public class AuteurResourceIT {
         auteur.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restAuteurMockMvc.perform(post("/api/auteurs")
+        restAuteurMockMvc.perform(post("/api/auteurs").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(auteur)))
             .andExpect(status().isBadRequest());
@@ -158,7 +160,7 @@ public class AuteurResourceIT {
         updatedAuteur
             .auteur(UPDATED_AUTEUR);
 
-        restAuteurMockMvc.perform(put("/api/auteurs")
+        restAuteurMockMvc.perform(put("/api/auteurs").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedAuteur)))
             .andExpect(status().isOk());
@@ -176,7 +178,7 @@ public class AuteurResourceIT {
         int databaseSizeBeforeUpdate = auteurRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restAuteurMockMvc.perform(put("/api/auteurs")
+        restAuteurMockMvc.perform(put("/api/auteurs").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(auteur)))
             .andExpect(status().isBadRequest());
@@ -195,7 +197,7 @@ public class AuteurResourceIT {
         int databaseSizeBeforeDelete = auteurRepository.findAll().size();
 
         // Delete the auteur
-        restAuteurMockMvc.perform(delete("/api/auteurs/{id}", auteur.getId())
+        restAuteurMockMvc.perform(delete("/api/auteurs/{id}", auteur.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.Theme;
 import com.ynov.biblio.repository.ThemeRepository;
 
@@ -18,13 +19,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link ThemeResource} REST controller.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = { BiblioJpApp.class, TestSecurityConfiguration.class })
 @AutoConfigureMockMvc
 @WithMockUser
 public class ThemeResourceIT {
@@ -76,7 +78,7 @@ public class ThemeResourceIT {
     public void createTheme() throws Exception {
         int databaseSizeBeforeCreate = themeRepository.findAll().size();
         // Create the Theme
-        restThemeMockMvc.perform(post("/api/themes")
+        restThemeMockMvc.perform(post("/api/themes").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(theme)))
             .andExpect(status().isCreated());
@@ -97,7 +99,7 @@ public class ThemeResourceIT {
         theme.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restThemeMockMvc.perform(post("/api/themes")
+        restThemeMockMvc.perform(post("/api/themes").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(theme)))
             .andExpect(status().isBadRequest());
@@ -158,7 +160,7 @@ public class ThemeResourceIT {
         updatedTheme
             .theme(UPDATED_THEME);
 
-        restThemeMockMvc.perform(put("/api/themes")
+        restThemeMockMvc.perform(put("/api/themes").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedTheme)))
             .andExpect(status().isOk());
@@ -176,7 +178,7 @@ public class ThemeResourceIT {
         int databaseSizeBeforeUpdate = themeRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restThemeMockMvc.perform(put("/api/themes")
+        restThemeMockMvc.perform(put("/api/themes").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(theme)))
             .andExpect(status().isBadRequest());
@@ -195,7 +197,7 @@ public class ThemeResourceIT {
         int databaseSizeBeforeDelete = themeRepository.findAll().size();
 
         // Delete the theme
-        restThemeMockMvc.perform(delete("/api/themes/{id}", theme.getId())
+        restThemeMockMvc.perform(delete("/api/themes/{id}", theme.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 

@@ -1,6 +1,8 @@
 package com.ynov.biblio.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -11,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "exemplaire")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Exemplaire implements Serializable {
 
     private static final long serialVersionUID = 1L;

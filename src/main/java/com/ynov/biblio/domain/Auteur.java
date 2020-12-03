@@ -1,6 +1,8 @@
 package com.ynov.biblio.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -13,6 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "auteur")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Auteur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,6 +28,7 @@ public class Auteur implements Serializable {
     private String auteur;
 
     @ManyToMany(mappedBy = "auteurs")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
     private Set<Livre> livres = new HashSet<>();
 

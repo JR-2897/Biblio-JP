@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.Livre;
 import com.ynov.biblio.repository.LivreRepository;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -32,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@link LivreResource} REST controller.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = { BiblioJpApp.class, TestSecurityConfiguration.class })
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
@@ -103,7 +105,7 @@ public class LivreResourceIT {
     public void createLivre() throws Exception {
         int databaseSizeBeforeCreate = livreRepository.findAll().size();
         // Create the Livre
-        restLivreMockMvc.perform(post("/api/livres")
+        restLivreMockMvc.perform(post("/api/livres").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(livre)))
             .andExpect(status().isCreated());
@@ -127,7 +129,7 @@ public class LivreResourceIT {
         livre.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restLivreMockMvc.perform(post("/api/livres")
+        restLivreMockMvc.perform(post("/api/livres").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(livre)))
             .andExpect(status().isBadRequest());
@@ -217,7 +219,7 @@ public class LivreResourceIT {
             .isbn(UPDATED_ISBN)
             .code(UPDATED_CODE);
 
-        restLivreMockMvc.perform(put("/api/livres")
+        restLivreMockMvc.perform(put("/api/livres").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedLivre)))
             .andExpect(status().isOk());
@@ -238,7 +240,7 @@ public class LivreResourceIT {
         int databaseSizeBeforeUpdate = livreRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restLivreMockMvc.perform(put("/api/livres")
+        restLivreMockMvc.perform(put("/api/livres").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(livre)))
             .andExpect(status().isBadRequest());
@@ -257,7 +259,7 @@ public class LivreResourceIT {
         int databaseSizeBeforeDelete = livreRepository.findAll().size();
 
         // Delete the livre
-        restLivreMockMvc.perform(delete("/api/livres/{id}", livre.getId())
+        restLivreMockMvc.perform(delete("/api/livres/{id}", livre.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
