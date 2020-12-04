@@ -8,7 +8,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Biblio JP</name>
-
     <developers>
     	<developer>
     		<name>VILLIERS Pierre</name>
@@ -55,7 +54,6 @@
           	<url>https://bilonjea.jfrog.io/artifactory/libs-release</url>
       	</repository>
     </distributionManagement>
-
     <repositories>
         <!-- jhipster-needle-maven-repository -->
     </repositories>
