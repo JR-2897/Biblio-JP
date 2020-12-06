@@ -3,6 +3,7 @@ package com.ynov.biblio.repository;
 import com.ynov.biblio.BiblioJpApp;
 
 import com.ynov.biblio.config.Constants;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.config.audit.AuditEventConverter;
 import com.ynov.biblio.domain.PersistentAuditEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ import static com.ynov.biblio.repository.CustomAuditEventRepository.EVENT_DATA_C
 /**
  * Integration tests for {@link CustomAuditEventRepository}.
  */
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = {BiblioJpApp.class, TestSecurityConfiguration.class})
 @Transactional
 public class CustomAuditEventRepositoryIT {
 

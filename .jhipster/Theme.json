@@ -1,0 +1,30 @@
+{
+  "name": "Theme",
+  "fields": [
+    {
+      "fieldName": "theme",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "livre",
+      "otherEntityRelationshipName": "theme",
+      "relationshipName": "livre",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20201203162233",
+  "entityTableName": "theme",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

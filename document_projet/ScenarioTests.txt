@@ -1,0 +1,34 @@
+Liste des scénarios de tests :
+  - 1er test - Creation d'un nouveau collaborateur :
+    - Enregistrement d'un utilisateur
+    - Connexion via le compte administrateur
+    - Accès à la liste des utilisateurs
+    - Vérifier la présence de l'utilisateur précédemment créé
+    - Ouvrir la page de modification de l'utilisateur créé précédemment
+    - Modifier le rôle de l'utilisateur en collaborateur
+    - Enregistrer la modification
+    - Verifier la modification du rôle du nouveau collaborateur
+  - 2e test - Creation d'un nouveau livre :
+    - Connexion via le compte administrateur puis par un compte collaborateur
+    - Accés à la liste des livres
+    - Appuyer sur le bouton "Créer un nouveau livre"
+    - Ajouter le titre du livre dans le champs "Titre"
+    - Renseigné le champs "Description" via la quatrième de couverture
+    - Inscrire l'ISBN dans le champs "ISBN" (enlever les tirets pour ne mettre que les 10 ou 13 chiffres)
+    - Renseigné le champs "Code" en suivant la classification décimale universelle
+    - Selectionné dans le champs de liste déroulante "Auteur", le ou les auteur.s du livre
+    - Selectionné dans le champs de liste déroulante "Theme", le ou les thème.s du livre
+    - Selectionné dans le champs de liste déroulante "Emplacement", l'emplacement du livre
+    - Appuyer sur le bouton "Sauvegarder"
+    - Vérifier la création du ou des nouveau.x livre.s
+  - 3eme test - Emprunter un livre :
+    - Connexion via un compte utilisateur
+    - Accèder à la liste des livres
+    - Rechercher le livre souhaité
+    - Cliquer sur la fiche du livre
+    - Vérifier que l'utilisateur n'a pas déjà 5 emprunts, sinon le bouton "Emprunt" est grisé et un texte d'explication de son état apparaît
+    - Vérifier que le livre a encore un exemplaire disponible, sinon le bouton "Emprunt" est grisé et un texte d'explication de son état apparaît
+    - Appuyer sur le bouton "Emprunter"
+    - Voir un pop-up indiquant la date de retour de l'emprunt
+    - Vérifier que le livre apparait dans la liste d'emprunt de l'utilisateur
+    - Vérifier que la date d'emprunt correspond au jour même

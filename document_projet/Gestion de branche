@@ -5,9 +5,25 @@ La branche "Master":
 
 La branche "Develop":
  - Branche principale du logiciel, qui devra passer les pipelines de test.
- - C'est de cette branche que le master doit être mis à jour, en fonction des paliers de fonctionnalité.
- 
+ - C'est de cette branche que le master doit être mis à jour, en fonction des paliers de fonctionnalité, des configuerations, des bugs,
+   des autres modifications apportées sur cette branche.
+
 Les branches "Feature" :
  - Branche qui doivent contenir une fonctionnalité (sauf cas particulier)
  - Le nom de ces branches doit être structuré comme ça => feature_<trigramme>_<description bref du sujet de la branche, tout attaché avec majuscule>
    ex: feature_PVI_EcrireProcessusGestionBranche.
+
+Les branches "Config" :
+ - Branche qui doivent contenir une configuration (sauf cas particulier)
+ - Le nom de ces branches doit être structuré comme ça => config_<trigramme>_<description bref du sujet de la branche, tout attaché avec majuscule>
+   ex: config_JRA_AjoutLicence.
+   
+Les branches "Bug" :
+ - Branche qui doivent contenir une correction d'un bug (sauf cas particulier)
+ - Le nom de ces branches doit être structuré comme ça => bug_<trigramme>_<description bref du sujet de la branche, tout attaché avec majuscule>
+   ex: bug_JRA_MotDePasseNonCrypte.
+   
+Les branches "Other" :
+ - Branche qui doivent contenir tous les autres types de modifications
+ - Le nom de ces branches doit être structuré comme ça => other_<trigramme>_<description bref du sujet de la branche, tout attaché avec majuscule>
+   ex: other_PVI_ChangerDescriptionDansPom. 

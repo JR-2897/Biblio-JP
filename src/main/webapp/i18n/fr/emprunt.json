@@ -1,0 +1,25 @@
+{
+  "biblioJpApp": {
+    "emprunt": {
+      "home": {
+        "title": "Emprunts",
+        "createLabel": "Créer un nouveau Emprunt",
+        "createOrEditLabel": "Créer ou éditer un Emprunt",
+        "notFound": "Aucun Emprunt trouvé"
+      },
+      "created": "Un nouveau Emprunt a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Emprunt avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Emprunt avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Emprunt {{ id }} ?"
+      },
+      "detail": {
+        "title": "Emprunt"
+      },
+      "dateEmprunt": "Date Emprunt",
+      "nbNotifRetard": "Nb Notif Retard",
+      "derniereDateNotif": "Derniere Date Notif",
+      "exemplaire": "Exemplaire"
+    }
+  }
+}

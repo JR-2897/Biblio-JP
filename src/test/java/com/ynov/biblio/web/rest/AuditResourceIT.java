@@ -1,6 +1,7 @@
 package com.ynov.biblio.web.rest;
 
 import com.ynov.biblio.BiblioJpApp;
+import com.ynov.biblio.config.TestSecurityConfiguration;
 import com.ynov.biblio.domain.PersistentAuditEvent;
 import com.ynov.biblio.repository.PersistenceAuditEventRepository;
 import com.ynov.biblio.security.AuthoritiesConstants;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
-@SpringBootTest(classes = BiblioJpApp.class)
+@SpringBootTest(classes = {BiblioJpApp.class, TestSecurityConfiguration.class})
 @Transactional
 public class AuditResourceIT {
 

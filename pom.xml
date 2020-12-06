@@ -8,7 +8,52 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Biblio JP</name>
+    <developers>
+    	<developer>
+    		<name>VILLIERS Pierre</name>
+    		<organization>YNOV</organization>
+    		<email>pierre.villiers@ynov.com</email>
+    		<roles>
+    			<role>Dev FullStack</role>
+    		</roles>
+    	</developer>
+    	<developer>
+    		<name>RAGUENEAU Jean</name>
+    		<organization>YNOV</organization>
+    		<email>jean.ragueneau@ynov.com</email>
+    		<roles>
+    			<role>Dev FullStack</role>
+    		</roles>
+    	</developer>
+    </developers>
 
+    <contributors>
+    	<contributor>
+			   <name>BILONG Jean</name>
+			   <organization>E-MET Consulting</organization>
+			   <email>j.bilong@gmail.com</email>
+			   <url>www.linkedin.com/in/bilonjea</url>
+			   <roles>
+				    <role>Développeur Java Spring Angular</role>
+				    <role>Formateur Java</role>
+			   </roles>
+		  </contributor>
+    </contributors>
+
+    <distributionManagement>
+        <!--libs-snapshot -->
+        <snapshotRepository>
+          	<id>snapshots</id>
+          	<name>a0fgx3oyfdjnr-artifactory-primary-0-snapshots</name>
+          	<url>https://bilonjea.jfrog.io/artifactory/libs-snapshot</url>
+      	</snapshotRepository>
+        <!-- libs-release -->
+        <repository>
+          	<id>central</id>
+         		<name>a0fgx3oyfdjnr-artifactory-primary-0-releases</name>
+          	<url>https://bilonjea.jfrog.io/artifactory/libs-release</url>
+      	</repository>
+    </distributionManagement>
     <repositories>
         <!-- jhipster-needle-maven-repository -->
     </repositories>
@@ -86,6 +131,9 @@
         <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
         <!-- jhipster-needle-maven-property -->
+        <sonar.projectKey>com.yov.biblio:biblio-jp</sonar.projectKey>
+  		  <sonar.organization>bibliojp</sonar.organization>
+  		  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
@@ -167,6 +215,10 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -228,10 +280,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
@@ -277,29 +325,16 @@
             <groupId>org.zalando</groupId>
             <artifactId>problem-spring-web</artifactId>
         </dependency>
+        <!-- Spring Security OAuth 2.0 -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
         <!-- Spring Cloud -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cloud-connectors</artifactId>
@@ -634,6 +669,7 @@
                         <verbose>true</verbose>
                         <logging>debug</logging>
                         <contexts>!test</contexts>
+                        <diffExcludeObjects>oauth_access_token, oauth_approvals, oauth_client_details, oauth_client_token, oauth_code, oauth_refresh_token</diffExcludeObjects>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -1027,18 +1063,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <!--
-                Profile for tracing requests with Zipkin.
-            -->
-            <id>zipkin</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-zipkin</artifactId>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <!--

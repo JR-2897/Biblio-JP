@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="exemplaire">
+            <h2><span jhiTranslate="biblioJpApp.exemplaire.detail.title">Exemplaire</span> {{ exemplaire.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="biblioJpApp.exemplaire.disponibilite">Disponibilite</span></dt>
+                <dd>
+                    <span>{{ exemplaire.disponibilite }}</span>
+                </dd>
+                <dt><span jhiTranslate="biblioJpApp.exemplaire.livre">Livre</span></dt>
+                <dd>
+                    <div *ngIf="exemplaire.livre">
+                        <a [routerLink]="['/livre', exemplaire.livre?.id, 'view']">{{ exemplaire.livre?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/exemplaire', exemplaire.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

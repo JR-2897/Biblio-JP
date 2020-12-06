@@ -1,0 +1,53 @@
+
+entity Theme {
+    theme String
+}
+
+entity Emplacement {
+    nomEmplacement String
+}
+
+entity Auteur {
+	auteur String
+}
+
+entity Livre {
+    titre String,
+    description TextBlob,
+    isbn String,
+    code String
+}
+
+entity Exemplaire {
+    disponibilite Boolean
+}
+
+entity Emprunt {
+	dateEmprunt ZonedDateTime,
+    nbNotifRetard Integer,
+    derniereDateNotif ZonedDateTime
+}
+
+relationship ManyToOne {
+    Emprunt{exemplaire} to Exemplaire,
+    Exemplaire{livre} to Livre
+}
+
+relationship ManyToMany {
+	Livre{auteur} to Auteur{livre},
+    Livre{theme} to Theme{livre},
+    Livre{emplacement} to Emplacement{livre}
+}	
+
+// Set pagination options
+//paginate Emprunt, Utilisateur with infinite-scroll
+//paginate Livre with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Utilisateur, Livre
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
