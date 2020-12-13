@@ -1,0 +1,21 @@
+Instruction pour initialiser le projet:
+- Lancer les dockers de MySql & de keyclock
+  ligne d'instruction : docker-compose -f src\main\mysql.yml up -d
+  ligne d'instruction : docker-compose -f src\main\keyclock.yml up -d
+  
+- Lancer l'application Biblio JP
+  ligne d'instruction : mvnw
+  
+- Initialiser les valeurs de bases dans la base de données
+  Accéder à la base de données (via la console ou une application (DBeaver*))
+  Importer ou copier le contenu du script SQL 'Script-Initialize-Data-BDD.sql'
+  
+- L'application est prête à être utilisé.
+
+* Connexion de la bdd à DBeaver
+  Lancer DBeaver (si vous ne l'avez pas installer le. https://dbeaver.io/download/)
+  Appuyer sur 'créer une connexion', puis sélectionner 'MySQL' simple (c'est la V8 de MySql) et appuyer sur 'Suivant'
+  Mettre 'bibliojp' dans le champs database, puis appuyer sur 'suivant'
+  Vous devrez accepeter le téléchargement des modules pour mysql
+  
+  
